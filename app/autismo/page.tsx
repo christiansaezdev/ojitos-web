@@ -111,7 +111,7 @@ export default function AutismPage() {
                             </div>
                             <h3 className="text-xl font-bold text-center mb-4 text-[var(--text-primary)]">Necesita Ayuda</h3>
                             <p className="text-sm text-gray-600 leading-relaxed">
-                                Sin apoyo, las dificultades en la comunicación social causan alteraciones notables. Dificultad para iniciar interacciones sociales y respuestas atípicas o fallidas a la apertura social de otros.
+                                bajo apoyo, las dificultades en la comunicación social causan alteraciones notables. Dificultad para iniciar interacciones sociales y respuestas atípicas o fallidas a la apertura social de otros.
                             </p>
                         </div>
 

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { FaHeart, FaHandHoldingHeart, FaLightbulb, FaEnvelope, FaInstagram, FaPhone } from 'react-icons/fa';
 import TeamMemberCard from '../components/TeamMemberCard';
@@ -88,17 +89,35 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <h2 className="section-title">Nuestro Directorio</h2>
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <TeamMemberCard name="Sindia Troncoso" role="Presidenta de la Corporación" />
-            <TeamMemberCard name="a definir" role="Secretaria" />
-            <TeamMemberCard name="a definir" role="Tesorera" />
-            {/* Add more members as needed */}
+            <TeamMemberCard name="Sindia Troncoso" role="Presidenta" imageUrl="/fotos/sindia_troncoso_presidenta.jpeg" />
+            <TeamMemberCard name="Yolanda Núñez" role="Vicepresidenta" imageUrl="/fotos/yolanda_nunez_vicepresidenta.jpeg" />
+            <TeamMemberCard name="Alexandra Rodríguez" role="Secretaria" imageUrl="/fotos/alexandra_rodriguez_secretaria.jpeg" />
+            <TeamMemberCard name="Natalie Cerda" role="Vicesecretaria" imageUrl="/fotos/natalie_cerda_viceSecretaria.jpeg" />
+            <TeamMemberCard name="Rocío Rivas" role="Tesorera" imageUrl="/fotos/rocio_rivas_tesorera.jpeg" />
+            <TeamMemberCard name="Luis Leiva" role="Director" imageUrl="/fotos/luis_leiva_directorjpeg.jpeg" />
+          </div>
+        </div>
+      </section>
+
+      {/* Foto Grupal */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="section-title">Unidos Por Una Causa</h2>
+          <div className="relative w-full max-w-5xl mx-auto h-80 md:h-[480px] rounded-2xl overflow-hidden shadow-xl">
+            <Image
+              src="/fotos/grupales2.jpeg"
+              alt="ONG Ojitos de Luz - Foto grupal"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 1024px"
+            />
           </div>
         </div>
       </section>
 
 
       {/* Colaboradores / Alianzas */}
-      <section className="py-20 bg-gray-50 border-t border-gray-100">
+      <section className="py-20 bg-gray-50 border-t border-gray-100" style={{display:"none"}}>
         <div className="container mx-auto px-4 text-center">
           <h2 className="section-title mb-12">Nuestras Alianzas</h2>
           <div className="flex flex-wrap justify-center gap-12 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
@@ -149,7 +168,7 @@ export default function Home() {
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Teléfono Presidenta</p>
-                  <p className="font-semibold">+56 9 XXXX XXXX</p>
+                  <p className="font-semibold">+56 9 3374 0935</p>
                 </div>
               </div>
             </div>

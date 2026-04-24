@@ -1,9 +1,41 @@
 "use client";
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaFilePdf, FaUsers, FaCheckCircle } from 'react-icons/fa';
 
+type FormState = 'idle' | 'loading' | 'success' | 'error';
+
 export default function CommunityPage() {
+    const [form, setForm] = useState({ nombre: '', rut: '', email: '', telefono: '', direccion: '', motivo: '' });
+    const [state, setState] = useState<FormState>('idle');
+    const [errorMsg, setErrorMsg] = useState('');
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    };
+
+    const handleSubmit = async () => {
+        setState('loading');
+        setErrorMsg('');
+        try {
+            const res = await fetch('/api/solicitud', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(form),
+            });
+            if (!res.ok) {
+                const data = await res.json();
+                throw new Error(data.error || 'Error al enviar.');
+            }
+            setState('success');
+            setForm({ nombre: '', rut: '', email: '', telefono: '', direccion: '', motivo: '' });
+        } catch (err: unknown) {
+            setState('error');
+            setErrorMsg(err instanceof Error ? err.message : 'Error al enviar. Intenta nuevamente.');
+        }
+    };
+
     return (
         <div className="bg-white min-h-screen">
             {/* Header */}
@@ -68,45 +100,63 @@ export default function CommunityPage() {
                         className="bg-white p-8 rounded-[var(--radius-lg)] shadow-lg border border-gray-100"
                     >
                         <h3 className="text-2xl font-bold text-[var(--text-primary)] mb-6 text-center">Formulario de Ingreso</h3>
-                        <form className="space-y-4">
-                            <div className="grid md:grid-cols-2 gap-4">
-                                <div className="space-y-1">
-                                    <label className="text-sm font-semibold text-gray-600">Nombre Completo</label>
-                                    <input type="text" className="w-full px-4 py-2 rounded-[var(--radius-sm)] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--primary-purple)]" />
+
+                        {state === 'success' ? (
+                            <div className="flex flex-col items-center justify-center py-12 text-center gap-4">
+                                <FaCheckCircle className="text-6xl text-[var(--accent-teal)]" />
+                                <h4 className="text-xl font-bold text-[var(--primary-purple)]">¡Solicitud enviada!</h4>
+                                <p className="text-gray-500">Revisá tu correo electrónico. Te enviamos una confirmación con los datos ingresados.</p>
+                                <button onClick={() => setState('idle')} className="btn btn-outline mt-4">Enviar otra solicitud</button>
+                            </div>
+                        ) : (
+                            <form className="space-y-4" onSubmit={e => { e.preventDefault(); handleSubmit(); }}>
+                                <div className="grid md:grid-cols-2 gap-4">
+                                    <div className="space-y-1">
+                                        <label className="text-sm font-semibold text-gray-600">Nombre Completo</label>
+                                        <input name="nombre" value={form.nombre} onChange={handleChange} type="text" required className="w-full px-4 py-2 rounded-[var(--radius-sm)] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--primary-purple)]" />
+                                    </div>
+                                    <div className="space-y-1">
+                                        <label className="text-sm font-semibold text-gray-600">RUT</label>
+                                        <input name="rut" value={form.rut} onChange={handleChange} type="text" required className="w-full px-4 py-2 rounded-[var(--radius-sm)] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--primary-purple)]" />
+                                    </div>
                                 </div>
+
                                 <div className="space-y-1">
-                                    <label className="text-sm font-semibold text-gray-600">RUT</label>
-                                    <input type="text" className="w-full px-4 py-2 rounded-[var(--radius-sm)] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--primary-purple)]" />
+                                    <label className="text-sm font-semibold text-gray-600">Correo Electrónico</label>
+                                    <input name="email" value={form.email} onChange={handleChange} type="email" required className="w-full px-4 py-2 rounded-[var(--radius-sm)] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--primary-purple)]" />
                                 </div>
-                            </div>
 
-                            <div className="space-y-1">
-                                <label className="text-sm font-semibold text-gray-600">Correo Electrónico</label>
-                                <input type="email" className="w-full px-4 py-2 rounded-[var(--radius-sm)] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--primary-purple)]" />
-                            </div>
+                                <div className="space-y-1">
+                                    <label className="text-sm font-semibold text-gray-600">Teléfono</label>
+                                    <input name="telefono" value={form.telefono} onChange={handleChange} type="tel" required className="w-full px-4 py-2 rounded-[var(--radius-sm)] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--primary-purple)]" />
+                                </div>
 
-                            <div className="space-y-1">
-                                <label className="text-sm font-semibold text-gray-600">Teléfono</label>
-                                <input type="tel" className="w-full px-4 py-2 rounded-[var(--radius-sm)] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--primary-purple)]" />
-                            </div>
+                                <div className="space-y-1">
+                                    <label className="text-sm font-semibold text-gray-600">Dirección</label>
+                                    <input name="direccion" value={form.direccion} onChange={handleChange} type="text" required className="w-full px-4 py-2 rounded-[var(--radius-sm)] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--primary-purple)]" />
+                                </div>
 
-                            <div className="space-y-1">
-                                <label className="text-sm font-semibold text-gray-600">Dirección</label>
-                                <input type="text" className="w-full px-4 py-2 rounded-[var(--radius-sm)] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--primary-purple)]" />
-                            </div>
+                                <div className="space-y-1">
+                                    <label className="text-sm font-semibold text-gray-600">Motivo de ingreso</label>
+                                    <textarea name="motivo" value={form.motivo} onChange={handleChange} rows={3} required className="w-full px-4 py-2 rounded-[var(--radius-sm)] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--primary-purple)]"></textarea>
+                                </div>
 
-                            <div className="space-y-1">
-                                <label className="text-sm font-semibold text-gray-600">Motivo de ingreso</label>
-                                <textarea rows={3} className="w-full px-4 py-2 rounded-[var(--radius-sm)] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--primary-purple)]"></textarea>
-                            </div>
+                                {state === 'error' && (
+                                    <p className="text-red-500 text-sm text-center">{errorMsg}</p>
+                                )}
 
-                            <button type="button" className="w-full btn btn-primary mt-4">
-                                Enviar Solicitud
-                            </button>
-                            <p className="text-xs text-gray-500 text-center mt-2">
-                                * Al enviar este formulario, aceptas ser contactado por la directiva.
-                            </p>
-                        </form>
+                                <button
+                                    type="submit"
+                                    disabled={state === 'loading'}
+                                    className="w-full btn btn-primary mt-4 disabled:opacity-60 disabled:cursor-not-allowed"
+                                >
+                                    {state === 'loading' ? 'Enviando...' : 'Enviar Solicitud'}
+                                </button>
+                                <p className="text-xs text-gray-500 text-center mt-2">
+                                    * Al enviar este formulario, aceptas ser contactado por la directiva.
+                                </p>
+                            </form>
+                        )}
                     </motion.div>
                 </div>
             </div>

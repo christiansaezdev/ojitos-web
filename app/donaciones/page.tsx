@@ -65,7 +65,7 @@ export default function DonationsPage() {
                 </motion.div>
 
                 {/* Donation Options */}
-                <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-20">
+                <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-20 " style={{display:"none"}}>
                     <DonationCard
                         title="Aporte Único"
                         price="$10.000"
@@ -93,22 +93,23 @@ export default function DonationsPage() {
                             <h3 className="text-2xl font-bold text-[var(--primary-purple)]">Transferencia Bancaria</h3>
                         </div>
                         <div className="space-y-2 text-[var(--text-secondary)]">
-                            <p><strong>Banco:</strong> Banco xxxxxx</p>
-                            <p><strong>Tipo de Cuenta:</strong> Cuenta Vista / Chequera Electrónica</p>
-                            <p><strong>Número de Cuenta:</strong> 123-456-789</p>
-                            <p><strong>RUT:</strong> 11.111.111-1</p>
-                            <p><strong>Nombre:</strong> ONG Ojitos de Luz</p>
+                            <p><strong>Banco:</strong> BancoEstado</p>
+                            <p><strong>Tipo de Cuenta:</strong> Chequera Electrónica</p>
+                            <p><strong>Número de Cuenta:</strong> 44470252003</p>
+                            <p><strong>RUT:</strong> 65.241.765-5</p>
+                            <p><strong>Nombre:</strong> Organización No Gubernamental de Desarrollo CEA Ojitos de Luz Longaví</p>
                             <p><strong>Correo:</strong> ojitosdeluzong@gmail.com</p>
                         </div>
                     </motion.div>
 
                     {/* Mercado Pago & Continuity */}
                     <motion.div {...fadeInUp} className="flex flex-col justify-center space-y-6">
-                        <div className="bg-white border-2 border-[#009ee3] p-6 rounded-[var(--radius-md)] flex flex-col items-center hover:bg-blue-50 transition-colors cursor-pointer text-center">
-                            <h4 className="font-bold text-[#009ee3] mb-2 text-lg flex items-center gap-2">
-                                <SiMercadopago className="text-3xl" /> Donar con Mercado Pago
+                        <div className="bg-gray-50 border-2 border-gray-200 p-6 rounded-[var(--radius-md)] flex flex-col items-center text-center opacity-70">
+                            <h4 className="font-bold text-gray-400 mb-2 text-lg flex items-center gap-2">
+                                <SiMercadopago className="text-3xl" /> Mercado Pago
                             </h4>
-                            <p className="text-sm text-gray-500">Tarjetas de crédito, débito.</p>
+                            <span className="text-xs font-semibold uppercase tracking-widest bg-gray-200 text-gray-500 px-3 py-1 rounded-full">Próximamente</span>
+                            <p className="text-sm text-gray-400 mt-2">Tarjetas de crédito y débito.</p>
                         </div>
 
                         <div className="bg-yellow-50 p-6 rounded-[var(--radius-md)] border border-yellow-200">

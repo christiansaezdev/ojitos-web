@@ -92,7 +92,7 @@ export default function Home() {
             <TeamMemberCard name="Sindia Troncoso" role="Presidenta" imageUrl="/fotos/sindia_troncoso_presidenta.jpeg" />
             <TeamMemberCard name="Yolanda Núñez" role="Vicepresidenta" imageUrl="/fotos/yolanda_nunez_vicepresidenta.jpeg" />
             <TeamMemberCard name="Alexandra Rodríguez" role="Secretaria" imageUrl="/fotos/alexandra_rodriguez_secretaria.jpeg" />
-            <TeamMemberCard name="Natalie Cerda" role="Vicesecretaria" imageUrl="/fotos/natalie_cerda_viceSecretaria.jpeg" />
+            <TeamMemberCard name="Natalie Cerda" role="Subsecretaria" imageUrl="/fotos/natalie_cerda_viceSecretaria.jpeg" />
             <TeamMemberCard name="Rocío Rivas" role="Tesorera" imageUrl="/fotos/rocio_rivas_tesorera.jpeg" />
             <TeamMemberCard name="Luis Leiva" role="Director" imageUrl="/fotos/luis_leiva_directorjpeg.jpeg" />
           </div>
